@@ -1,0 +1,25 @@
+{% extends 'stally/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+
+Stally
+
+{% endblock %}
+
+{% block body_block %}
+
+{% if market %}
+    <h1>{{ market.name }}</h1>
+    {% if stalls %}
+        <ul>
+            {% for stall in stalls %}
+            <li>{{stall.name}}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+    <p>No Stalls Here!</p>
+    {% endif %}
+{% endif %}
+<div id="map"></div>
+{% endblock %}

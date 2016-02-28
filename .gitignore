@@ -1,0 +1,6 @@
+*.pyc
+__pycache__
+virtual
+db.sqlite3
+/stally/static
+.DS_Store

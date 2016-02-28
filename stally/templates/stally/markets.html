@@ -1,0 +1,102 @@
+{% extends 'stally/base.html' %}
+{% load staticfiles %}
+
+{% block headscript %}
+
+
+<style>
+    #map {
+    width: 100%;
+    height: 400px;
+    background-color: #CCC;
+  }
+</style>
+<!--
+<script src="{% static "stally/js/google_map.js" %}"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ9ICYzuAub7ZAL6c7IVo3kKuTCYBZ7es&callback=initMap" async defer>
+</script>
+<script>
+    {% for market in markets %}
+            var marker = new google.maps.Marker({
+                position: {lat: {{market.lat}}, lng: {{market.lng}}},
+                map: map,
+                title: '{{market.name}}'
+                });
+                
+    {% endfor %}
+</script>
+-->
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ9ICYzuAub7ZAL6c7IVo3kKuTCYBZ7es"></script>
+    <script>
+      function initialize() {
+        var mapCanvas = document.getElementById('map');
+        var mapOptions = {
+          center: new google.maps.LatLng(-33.853902, 151.216407),
+          zoom: 10,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+          
+        var map = new google.maps.Map(mapCanvas, mapOptions);
+          
+
+        //populate market data  
+        {% if markets %}
+            {% for market in markets %}
+                latlng = new google.maps.LatLng({{ market.lat }},{{ market.lng }});
+                var marker = new google.maps.Marker({
+                    position: latlng,
+                    map: map,
+                    title: "{{ market.name }}",
+                    url: "/market/{{ market.slug }}"
+                });
+                google.maps.event.addListener(marker, 'click', function() {
+                    window.location.href = this.url;
+                });
+            {% endfor %}
+        {% endif %}
+       }; //closes initialize
+        
+        google.maps.event.addDomListener(window, 'load', initialize); //loads map on page
+        
+    </script>
+
+{% endblock %}
+
+{% block title %}
+
+Stally
+
+{% endblock %}
+{% block body_block %}
+
+<div class="container">
+{% if markets %}
+    Today's Markets are:
+    <ul>
+        {% for market in markets %}
+        <li><a href="/market/{{ market.slug }}">{{ market }}</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+
+<div class="container">
+    <p>Add a Market!</p>
+    <form id="market_form" method="post" action="{% url 'markets' %}"
+            enctype="multipart/form-data">
+
+        {% csrf_token %}
+        {{ market_form.as_p }}
+        
+        <!-- Provide a button to click to submit the form. -->
+        <input type="submit" name="submit" value="Create Market" />
+    </form>
+</div>
+
+<div class="container">
+    <div id="map"></div>
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,22 @@
+{% extends 'stally/base.html' %}
+{% load staticfiles %}
+{% block title %}
+
+Stally
+
+{% endblock %}
+
+    {% block body_block %}
+
+
+    {% if markets %}
+    Today's Markets are:
+    <ul>
+        {% for market in markets %}
+        <li><a href="/market/{{ market.slug }}">{{ market }}</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+
+    {% endblock %}
