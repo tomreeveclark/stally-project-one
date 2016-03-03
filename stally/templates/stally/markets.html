@@ -1,31 +1,5 @@
 {% extends 'stally/base.html' %}
-{% load staticfiles %}
-
 {% block headscript %}
-
-
-<style>
-    #map {
-    width: 100%;
-    height: 400px;
-    background-color: #CCC;
-  }
-</style>
-<!--
-<script src="{% static "stally/js/google_map.js" %}"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ9ICYzuAub7ZAL6c7IVo3kKuTCYBZ7es&callback=initMap" async defer>
-</script>
-<script>
-    {% for market in markets %}
-            var marker = new google.maps.Marker({
-                position: {lat: {{market.lat}}, lng: {{market.lng}}},
-                map: map,
-                title: '{{market.name}}'
-                });
-                
-    {% endfor %}
-</script>
--->
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ9ICYzuAub7ZAL6c7IVo3kKuTCYBZ7es"></script>
     <script>
@@ -93,8 +67,10 @@ Stally
         <input type="submit" name="submit" value="Create Market" />
     </form>
 </div>
+{% endblock %}
 
-<div class="container">
+{% block body_block_two %}
+<div class="panel panel-default" style="width:100%">
     <div id="map"></div>
 </div>
 

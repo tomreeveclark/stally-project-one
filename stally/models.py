@@ -6,7 +6,7 @@ from decimal import Decimal
 from django.db import models
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, related_name="userprofile")
     
     #website = models.URLField(blank=True)
     #picture = models.ImageField(upload_to='profile_images', blank=True)

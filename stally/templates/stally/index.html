@@ -1,5 +1,4 @@
 {% extends 'stally/base.html' %}
-{% load staticfiles %}
 {% block title %}
 
 Stally
@@ -8,15 +7,39 @@ Stally
 
     {% block body_block %}
 
+    {% if user.is_authenticated %}
+        <p>You are authenticated, and your username is {{ user }}!<p>
+            {% if user.userprofile.markets.all %}
+                <p>You are subscribed to the following markets: <p>
+                <ul>
+                    {% for market in user.userprofile.markets.all %}
+                        <li>{{ market }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+    {% else %}
+        <p>you are not authenticated<p>
+    {% endif %}
 
     {% if markets %}
-    Today's Markets are:
-    <ul>
-        {% for market in markets %}
-        <li><a href="/market/{{ market.slug }}">{{ market }}</a></li>
-        {% endfor %}
-    </ul>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Today's Top Markets</h3>
+        </div>
+        <div class="panel-body">
+            <div class="list-group">
+                {% for market in markets %}
+                    <a href="/market/{{ market.slug }}" class="list-group-item">
+                        {{ market }}
+                        <span class="badge">5</span>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
     {% endif %}
+
 
 
     {% endblock %}
