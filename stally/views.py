@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from datetime import datetime
 
+from django.contrib.auth.models import User
 from stally.models import Market, Stall, UserProfile
 from stally.forms import UserForm, UserProfileForm, MarketForm, StallForm
 
@@ -19,6 +20,16 @@ def index(request):
     context_dict={'markets':markets}
     
     return render(request, 'stally/index.html', context_dict)
+
+@login_required
+def dashboard(request):
+
+    if request.user.is_authenticated():
+        submarkets=request.user.userprofile.follows.all()
+
+    context_dict={}
+    context_dict['submarkets'] = submarkets
+    return render(request, 'stally/dashboard.html', context_dict)
 
 def markets(request):
     

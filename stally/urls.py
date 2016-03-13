@@ -3,6 +3,7 @@ from stally import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^dashboard/$', views.dashboard, name='dashboard'),
     url(r'^market/$', views.markets, name='markets'),
     url(r'^market/(?P<market_name_slug>[\w\-]+)/$', views.market, name='market'),
     url(r'^stall/$', views.stall, name='stall'),

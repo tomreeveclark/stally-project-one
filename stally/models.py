@@ -7,6 +7,7 @@ from django.db import models
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name="userprofile")
+    follows = models.ManyToManyField('Market', related_name="followedby")
     
     #website = models.URLField(blank=True)
     #picture = models.ImageField(upload_to='profile_images', blank=True)

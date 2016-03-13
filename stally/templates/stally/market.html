@@ -1,4 +1,39 @@
 {% extends 'stally/base.html' %}
+
+{% block headscript %}
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ9ICYzuAub7ZAL6c7IVo3kKuTCYBZ7es"></script>
+    <script>
+      function initialize() {
+        var mapCanvas = document.getElementById('map');
+        var mapOptions = {
+          center: new google.maps.LatLng({{ market.lat }}, {{ market.lng }}),
+          zoom: 15,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+          
+        var map = new google.maps.Map(mapCanvas, mapOptions);
+
+        //populate market data  
+        {% if market %}
+                latlng = new google.maps.LatLng({{ market.lat }},{{ market.lng }});
+                var marker = new google.maps.Marker({
+                    position: latlng,
+                    map: map,
+                    title: "{{ market.name }}",
+                });
+                google.maps.event.addListener(marker, 'click', function() {
+                    window.location.href = this.url;
+                });
+        {% endif %}
+       }; //closes initialize
+        
+        google.maps.event.addDomListener(window, 'load', initialize); //loads map on page
+        
+    </script>
+
+{% endblock %}
+
 {% block title %}
 
 Stally

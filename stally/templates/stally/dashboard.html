@@ -1,0 +1,32 @@
+{% extends 'stally/base.html' %}
+{% block title %}
+
+Stally - Dashboard
+
+{% endblock %}
+{% block body_block %}
+
+<p>Hello, {{ user }}! </p>
+<p>This is your dashboard, here you will find all the markets and stalls that you are subscribed to!</p>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Subscribed Markets:</h3>
+        </div>
+        <div class="panel-body">
+        	{% if submarkets %}
+            <div class="list-group">
+                {% for market in submarkets %}
+                    <a href="/market/{{ market.slug }}" class="list-group-item">
+                        {{ market }}
+                        <span class="badge">5</span>
+                    </a>
+                {% endfor %}
+            {% else %}
+            	<p>You're not subscribed to any markets! Less talk, more doing!</p>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
