@@ -8,27 +8,8 @@ Stally
 
 <!-- body goes here! -->
 <div class="container">
-{% if stalls %}
-    Today's Stalls are:
-    <ul>
-        {% for stall in stalls %}
-        <li>{{ stall }}, which can be found at: {{ stall.market }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-</div>
-
-<div class="container">
-    <p>Add a Stall!</p>
-    <form id="stall_form" method="post" action="{% url 'stall' %}"
-            enctype="multipart/form-data">
-
-        {% csrf_token %}
-        {{ stall_form.as_p }}
-        
-        <!-- Provide a button to click to submit the form. -->
-        <input type="submit" name="submit" value="Create Stall" />
-    </form>
-</div>
+{% if stall %}
+    {{ stall }}
+{% endif %}
 
 {% endblock %}

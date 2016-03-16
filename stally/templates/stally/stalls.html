@@ -1,0 +1,34 @@
+{% extends 'stally/base.html' %}
+{% block title %}
+
+Stally
+
+{% endblock %}
+{% block body_block %}
+
+<!-- body goes here! -->
+<div class="container">
+{% if stalls %}
+    Today's Stalls are:
+    <ul>
+        {% for stall in stalls %}
+        <li><a href="/stall/{{ stall.slug }}">{{ stall }}, which can be found at: {{ stall.market }}</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+
+<div class="container">
+    <p>Add a Stall!</p>
+    <form id="stall_form" method="post" action="{% url 'stalls' %}"
+            enctype="multipart/form-data">
+
+        {% csrf_token %}
+        {{ stall_form.as_p }}
+        
+        <!-- Provide a button to click to submit the form. -->
+        <input type="submit" name="submit" value="Create Stall" />
+    </form>
+</div>
+
+{% endblock %}

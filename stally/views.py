@@ -89,7 +89,7 @@ def market(request, market_name_slug):
     
     return render(request, 'stally/market.html', context_dict)
 
-def stall(request):
+def stalls(request):
     
     stalls = Stall.objects.all()
     markets = Market.objects.all()
@@ -117,8 +117,36 @@ def stall(request):
 
     # Render the template depending on the context.
     return render(request,
-            'stally/stall.html',
+            'stally/stalls.html',
             {'stall_form': stall_form, 'stalls':stalls, 'markets': markets} )
+
+def stall(request, stall_name_slug):
+    
+    context_dict={}
+    
+    try:
+        # Can we find a category name slug with the given name?
+        # If we can't, the .get() method raises a DoesNotExist exception.
+        # So the .get() method returns one model instance or raises an exception.
+        stall = Stall.objects.get(slug=stall_name_slug)
+        context_dict['stall_name'] = stall.name
+        context_dict['stall_name_slug'] = stall.slug
+        context_dict['stall'] = stall
+        # Retrieve all of the associated pages.
+        # Note that filter returns >= 1 model instance.
+        #stalls = Stall.objects.filter(market=market)
+
+        # Adds our results list to the template context under name pages.
+        #context_dict['stall'] = stall
+        # We also add the category object from the database to the context dictionary.
+        # We'll use this in the template to verify that the category exists.
+
+    except Stall.DoesNotExist:
+        # We get here if we didn't find the specified category.
+        # Don't do anything - the template displays the "no category" message for us.
+        pass
+    
+    return render(request, 'stally/stall.html', context_dict)
 
 def register(request):
 

@@ -40,6 +40,14 @@ class Stall(models.Model):
     
     #sub_user = models.ForeignKey(UserProfile, blank=True)
     
+    slug = models.SlugField()
+
+    def save(self, *args, **kwargs):
+        if self.id is None:
+            self.slug = slugify(self.name)
+        self.slug = slugify(self.name)
+        super(Stall, self).save(*args, **kwargs)
+
     def __str__(self):
         return self.name
     
