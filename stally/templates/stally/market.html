@@ -43,7 +43,13 @@ Stally
 {% block body_block %}
 
 {% if market %}
-    <h1>{{ market.name }}</h1>
+    <h1>{{ market.name }}
+    {% if user.userprofile in market.followedby.all %}
+        <span class="glyphicon glyphicon-heart" />
+    {% endif %}
+    </h1>
+    
+
     {% if stalls %}
         <ul>
             {% for stall in stalls %}
