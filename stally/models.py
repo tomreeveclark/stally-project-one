@@ -51,4 +51,15 @@ class Stall(models.Model):
     def __str__(self):
         return self.name
     
-        
+class Event(models.Model):
+    market = models.ForeignKey(Market)
+    stalls = models.ManyToManyField('Stall', blank = True)
+    date = models.DateField()
+
+    #def save(self, *args, **kwargs):
+    #   self.location = market.location
+    #   self.name = market.name
+    #   super(Event, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.market.name + ' ' + str(self.date)
