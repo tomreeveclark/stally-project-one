@@ -12,7 +12,7 @@ Stally
     Today's Stalls are:
     <ul>
         {% for stall in stalls %}
-        <li><a href="/stall/{{ stall.slug }}">{{ stall }}, which can be found at: {{ stall.market }}</a></li>
+        <li><a href="{{ stall.slug }}">{{ stall }}, which can be found at: {{ stall.market }}</a></li>
         {% endfor %}
     </ul>
     {% endif %}

@@ -1,0 +1,27 @@
+{% extends 'stally/base.html' %}
+{% block title %}
+
+Booker
+
+{% endblock %}
+
+    {% block body_block %}
+
+
+<p>Stall Owner</p>
+<p><a href="{% url 'stallowner' %}">Stall Owner</a></p>
+<p><a href="{% url 'marketowner' %}">Market Owner</a></p>
+
+
+<div class="container">
+{% if markets %}
+    Today's Markets are:
+    <ul>
+        {% for market in markets %}
+        <li><a href="{{ market.slug }}">{{ market }}</a> - <a href={% url 'application' %}>Apply!</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+
+    {% endblock %}

@@ -49,7 +49,7 @@ Stally
     Today's Markets are:
     <ul>
         {% for market in markets %}
-        <li><a href="/market/{{ market.slug }}">{{ market }}</a></li>
+        <li><a href="{{ market.slug }}">{{ market }}</a></li>
         {% endfor %}
     </ul>
     {% endif %}

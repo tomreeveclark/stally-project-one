@@ -1,0 +1,28 @@
+{% extends 'stally/base.html' %}
+{% block title %}
+
+Booker
+
+{% endblock %}
+
+    {% block body_block %}
+
+<p>Application Page</p>
+<p><a href="{% url 'stallowner' %}">Stall Owner</a></p>
+<p><a href="{% url 'marketowner' %}">Market Owner</a></p>
+
+
+<div class="container">
+    <p>Apply to a Market!</p>
+    <form id="application_form" method="post" action="{% url 'application' %}"
+            enctype="multipart/form-data">
+
+        {% csrf_token %}
+        {{ application_form.as_p }}
+        
+        <!-- Provide a button to click to submit the form. -->
+        <input type="submit" name="submit" value="Apply to Market" />
+    </form>
+</div>
+
+    {% endblock %}

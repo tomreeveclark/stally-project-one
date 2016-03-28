@@ -19,6 +19,8 @@ from django.contrib import admin
 
 
 urlpatterns = [
+	url(r'^$', include('stally.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('stally.urls')),
+    url(r'^stally/', include('stally.urls')),
+    url(r'^booker/', include('booker.urls')),
 ]

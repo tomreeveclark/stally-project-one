@@ -1,0 +1,14 @@
+{% extends 'stally/base.html' %}
+{% block title %}
+
+Booker
+
+{% endblock %}
+
+    {% block body_block %}
+
+<p>Hello, World!</p>
+<p><a href="{% url 'stallowner' %}">Stall Owner</a></p>
+<p><a href="{% url 'marketowner' %}">Market Owner</a></p>
+
+    {% endblock %}
